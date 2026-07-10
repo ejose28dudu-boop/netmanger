@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetManager - Gestão de Clientes e Planos de Internet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">N</div>
+                <div class="brand-name">NetManager</div>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li>
+                        <a class="nav-item active" data-view="dashboard">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="7" height="9" rx="1" />
+                                <rect x="14" y="3" width="7" height="5" rx="1" />
+                                <rect x="14" y="12" width="7" height="9" rx="1" />
+                                <rect x="3" y="16" width="7" height="5" rx="1" />
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item" data-view="clientes">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                            <span>Clientes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item" data-view="planos">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                                <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                                <line x1="6" y1="6" x2="6.01" y2="6" />
+                                <line x1="6" y1="18" x2="6.01" y2="18" />
+                            </svg>
+                            <span>Planos de Internet</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header>
+                <div class="header-title">
+                    <h1 id="view-title">Dashboard</h1>
+                    <p id="view-subtitle">Bem-vindo de volta! Aqui está o resumo geral das operações.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">AD</div>
+                    <div class="profile-info">
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 1. DASHBOARD VIEW -->
+            <section id="dashboard-view" class="view-section active">
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card purple">
+                        <div class="kpi-header">
+                            <span>Clientes Cadastrados</span>
+                            <div class="kpi-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-total-clientes">0</div>
+                        <div class="kpi-trend trend-up">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                            <span>Ativos no sistema</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card blue">
+                        <div class="kpi-header">
+                            <span>Planos Criados</span>
+                            <div class="kpi-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-total-planos">0</div>
+                        <div class="kpi-trend">
+                            <span>Planos de velocidade</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card pink">
+                        <div class="kpi-header">
+                            <span>Receita Mensal Estimada</span>
+                            <div class="kpi-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-value" id="kpi-receita-total">R$ 0,00</div>
+                        <div class="kpi-trend trend-up">
+                            <span>Faturamento recorrente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+                    <!-- Distribution Panel -->
+                    <div class="panel-card">
+                        <div class="panel-title">
+                            <span>Distribuição de Clientes por Plano</span>
+                            <span style="font-size: 0.85rem; color: var(--text-secondary); font-weight: normal;">Contabilidade em tempo real</span>
+                        </div>
+                        <div class="dist-list" id="dashboard-dist-list">
+                            <!-- JS Will Render Distribution Bars Here -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Clients Panel -->
+                    <div class="panel-card">
+                        <div class="panel-title">
+                            <span>Últimos Clientes</span>
+                        </div>
+                        <div class="dist-list" id="dashboard-recent-clients">
+                            <!-- JS Will Render Recent Clients List Here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. CLIENTES VIEW -->
+            <section id="clientes-view" class="view-section">
+                <div class="table-header-controls">
+                    <div class="search-input-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="search-clientes" class="search-input" placeholder="Buscar clientes por nome, CPF ou e-mail...">
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="btn-novo-cliente">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Novo Cliente
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel-card" style="padding: 1rem;">
+                    <div class="table-wrapper">
+                        <table id="table-clientes">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>E-mail</th>
+                                    <th>Telefone</th>
+                                    <th>Plano Escolhido</th>
+                                    <th style="text-align: right;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-clientes">
+                                <!-- JS Will Render Clients Rows Here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="empty-state-clientes" class="empty-state" style="display: none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <line x1="23" y1="11" x2="17" y2="11" />
+                        </svg>
+                        <h3>Nenhum cliente cadastrado</h3>
+                        <p>Comece adicionando um novo cliente e associe-o a um plano ativo.</p>
+                        <button class="btn btn-primary btn-sm" id="btn-empty-novo-cliente">Cadastrar Cliente</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. PLANOS VIEW -->
+            <section id="planos-view" class="view-section">
+                <div class="table-header-controls">
+                    <div class="search-input-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="search-planos" class="search-input" placeholder="Buscar planos por nome ou tipo...">
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="btn-novo-plano">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Novo Plano
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plans-grid" id="plans-container">
+                    <!-- JS Will Render Plan Cards Here -->
+                </div>
+
+                <div id="empty-state-planos" class="empty-state" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                    </svg>
+                    <h3>Nenhum plano encontrado</h3>
+                    <p>Crie planos de internet de alta velocidade para que seus clientes possam assinar.</p>
+                    <button class="btn btn-primary" id="btn-empty-novo-plano">Criar Primeiro Plano</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- CLIENT MODAL -->
+    <div class="modal-overlay" id="modal-cliente-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-cliente-title">Cadastrar Novo Cliente</h3>
+                <button class="modal-close" id="btn-close-modal-cliente">&times;</button>
+            </div>
+            <form id="form-cliente">
+                <input type="hidden" id="cliente-id">
+                <div class="form-group">
+                    <label class="form-label" for="cliente-nome">Nome Completo</label>
+                    <input type="text" id="cliente-nome" class="form-control" placeholder="Ex: João Silva" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cliente-cpf">CPF</label>
+                    <input type="text" id="cliente-cpf" class="form-control" placeholder="000.000.000-00" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cliente-email">E-mail</label>
+                    <input type="email" id="cliente-email" class="form-control" placeholder="joao@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cliente-telefone">Telefone</label>
+                    <input type="tel" id="cliente-telefone" class="form-control" placeholder="(11) 99999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cliente-plano">Plano de Internet</label>
+                    <select id="cliente-plano" class="form-control" required>
+                        <option value="" disabled selected>Selecione um plano...</option>
+                        <!-- Options filled by JS -->
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal-cliente">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- PLAN MODAL -->
+    <div class="modal-overlay" id="modal-plano-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-plano-title">Criar Novo Plano</h3>
+                <button class="modal-close" id="btn-close-modal-plano">&times;</button>
+            </div>
+            <form id="form-plano">
+                <input type="hidden" id="plano-id">
+                <div class="form-group">
+                    <label class="form-label" for="plano-nome">Nome do Plano</label>
+                    <input type="text" id="plano-nome" class="form-control" placeholder="Ex: Fibra Ultra" required>
+                </div>
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label class="form-label" for="plano-velocidade">Velocidade</label>
+                        <input type="text" id="plano-velocidade" class="form-control" placeholder="Ex: 500" required>
+                    </div>
+                    <div>
+                        <label class="form-label" for="plano-unidade">Unidade</label>
+                        <select id="plano-unidade" class="form-control" required>
+                            <option value="Mega">Mega (Mbps)</option>
+                            <option value="Giga">Giga (Gbps)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label class="form-label" for="plano-preco">Preço Mensal (R$)</label>
+                        <input type="number" id="plano-preco" class="form-control" placeholder="99.90" step="0.01" required>
+                    </div>
+                    <div>
+                        <label class="form-label" for="plano-tipo">Tipo de Conexão</label>
+                        <select id="plano-tipo" class="form-control" required>
+                            <option value="Fibra Óptica">Fibra Óptica</option>
+                            <option value="Cabo Coaxial">Cabo Coaxial</option>
+                            <option value="Via Satélite">Via Satélite</option>
+                            <option value="Sem Fio (5G)">Sem Fio (5G)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="plano-descricao">Descrição do Plano</label>
+                    <textarea id="plano-descricao" class="form-control" placeholder="Descreva os benefícios do plano (Ex: Wi-Fi incluso, sem franquia...)"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal-plano">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Plano</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
