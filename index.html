@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Global Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p id="loading-text">Conectando ao banco de dados nuvem...</p>
+    </div>
+
     <div class="app-container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
@@ -55,6 +61,18 @@
 
         <!-- Main Content Area -->
         <main class="main-content">
+            <!-- Supabase Configuration Warning Banner -->
+            <div id="setup-warning" class="setup-warning" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <span><strong>Modo Local / Sem Conexão:</strong> Configure as credenciais do Supabase no início do arquivo <code>app.js</code> para salvar na nuvem e sincronizar.</span>
+                </div>
+            </div>
+
             <!-- Header -->
             <header>
                 <div class="header-title">
@@ -176,7 +194,6 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>CPF</th>
-                                    <th>E-mail</th>
                                     <th>Telefone</th>
                                     <th>Plano Escolhido</th>
                                     <th style="text-align: right;">Ações</th>
@@ -256,10 +273,6 @@
                     <input type="text" id="cliente-cpf" class="form-control" placeholder="000.000.000-00" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="cliente-email">E-mail</label>
-                    <input type="email" id="cliente-email" class="form-control" placeholder="joao@email.com" required>
-                </div>
-                <div class="form-group">
                     <label class="form-label" for="cliente-telefone">Telefone</label>
                     <input type="tel" id="cliente-telefone" class="form-control" placeholder="(11) 99999-9999" required>
                 </div>
@@ -331,6 +344,8 @@
         </div>
     </div>
 
+    <!-- Supabase JS Client Library CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="app.js"></script>
 </body>
 </html>
